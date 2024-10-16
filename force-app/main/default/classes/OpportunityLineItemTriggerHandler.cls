@@ -11,8 +11,7 @@ public with sharing class OpportunityLineItemTriggerHandler {
         for (OpportunityLineItem oli : opportunityLineItems) {
             Product2 car = carsMap.get(oli.Product2Id);
             Opportunity opp = opportunitiesMap.get(oli.OpportunityId);
-            if((car.Car_Status__c =='Reserved' || car.Car_Status__c == 'Sold') 
-            && (opp.StageName!='Contract Sent' &&  opp.StageName!='Closed Won')){
+            if((car.Car_Status__c =='Reserved' || car.Car_Status__c == 'Sold') ){
                 oli.addError('Warning! This Opportunity has reserved or sold cars. You are not able to move forward with it, until you remove those cars, or they are back available.');
             }
            
