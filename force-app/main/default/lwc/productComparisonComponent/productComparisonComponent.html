@@ -1,0 +1,21 @@
+<template>
+    <div class="slds-grid">
+        <div class="slds-col">
+            <lightning-button if:true={isButton1Visible} label="+ Add a car" onclick={openModal} data-id="1"></lightning-button>
+            <c-product-component product-info={product1Info}></c-product-component>
+        </div>
+        <div class="slds-col">
+            <lightning-button if:true={isButton2Visible} label="+ Add a car" onclick={openModal} data-id="2"></lightning-button>
+            <c-product-component product-info={product2Info}></c-product-component>
+        </div>
+        <div class="slds-col">
+            <lightning-button if:true={isButton3Visible} label="+ Add a car" onclick={openModal} data-id="3"></lightning-button>
+            <c-product-component product-info={product3Info}></c-product-component>
+        </div>
+        <div class="slds-col">
+            <lightning-button if:true={isButton4Visible} label="+ Add a car" onclick={openModal} data-id="4"></lightning-button>
+            <c-product-component product-info={product4Info}></c-product-component>
+        </div>
+    </div>
+       
+</template>

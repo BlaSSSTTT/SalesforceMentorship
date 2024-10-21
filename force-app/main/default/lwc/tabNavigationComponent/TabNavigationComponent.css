@@ -1,0 +1,9 @@
+.vertical-tabs .slds-tabs_default {
+    height: auto; 
+}
+
+.slds-button-group {
+    margin-right: 1rem; 
+    display: flex;
+    flex-direction: column; 
+}
