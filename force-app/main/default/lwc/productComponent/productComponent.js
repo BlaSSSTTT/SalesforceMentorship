@@ -1,7 +1,6 @@
 import { LightningElement, api, track } from 'lwc';
 import getCar from '@salesforce/apex/CarService.getCar';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent'; // Імпорт для Toast
-
+import { ShowToastEvent } from 'lightning/platformShowToastEvent'; 
 export default class ProductComponent extends LightningElement {
     @track car;
     @track error;
@@ -32,10 +31,6 @@ export default class ProductComponent extends LightningElement {
 
     fetchCarDetails() {
         const { year, brand, model, name } = this.productInfo;
-        console.log(year);
-        console.log(brand);
-        console.log(model);
-        console.log(name);
         getCar({ year, brand, model, name })
             .then(result => {
                 this.car = result;
@@ -55,5 +50,30 @@ export default class ProductComponent extends LightningElement {
             variant: variant,
         });
         this.dispatchEvent(event);
+    }
+     _shownArea;
+    @api
+    set shownArea(value) {
+        this._shownArea = value;
+        if (value) {
+            this.scrollToSection(value);
+        }
+    }
+
+    get shownArea() {
+        return this._shownArea;
+    }
+
+    scrollToSection(section) {
+        const targetElement = this.template.querySelector(`[data-section="${section}"]`);
+        console.log(targetElement);
+        if (targetElement) {
+            const yOffset = document.querySelector(".slds-card__header").getBoundingClientRect().left+50; 
+            const y = targetElement.getBoundingClientRect().top + window.scrollY - yOffset;
+            window.scrollTo({top: y, behavior: 'smooth'});
+            //targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+        } else {
+            console.error(`Section "${section}" not found.`);
+        }
     }
 }

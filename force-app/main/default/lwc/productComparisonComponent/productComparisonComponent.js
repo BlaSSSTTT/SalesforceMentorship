@@ -6,12 +6,16 @@ export default class ProductComparisonComponent extends LightningElement {
     @track isButton2Visible = true;
     @track isButton3Visible = true;
     @track isButton4Visible = true;
-
+    @track showTabs = true;//!isButton1Visible || !isButton2Visible || !isButton3Visible || !isButton4Visible;
     @track product1Info;
     @track product2Info;
     @track product3Info;
     @track product4Info;
+    @track selectedArea;
 
+    handleButtonClick(event) {
+        this.selectedArea = event.detail;
+    }
 
     async openModal(event) {
         const buttonId = event.target.dataset.id;

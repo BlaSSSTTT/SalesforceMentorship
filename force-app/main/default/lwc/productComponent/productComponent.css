@@ -4,7 +4,9 @@
     padding: 1rem; 
     margin-bottom: 1rem; 
 }
-
+.car-info{
+    padding: 10px;
+}
 .custom-card h2 {
     font-size: 1.25rem;
     font-weight: bold; 
