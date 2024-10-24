@@ -14,6 +14,9 @@ export default class ProductComparisonComponent extends LightningElement {
 
     @track showTabs = false;
 
+
+    
+
     handleButtonClick(event) {
         this.selectedArea = event.detail;
     }

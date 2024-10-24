@@ -24,4 +24,10 @@
     margin-top: 1rem;
     margin-bottom: 10px;
 }
-
+.card{
+    border: 2px solid black; 
+    border-radius: 0.25rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    
+}

@@ -1,5 +1,5 @@
 <template>  
-    <lightning-card lwc:if={car} title={cardTitle} icon-name="custom:custom63">
+    <div lwc:if={car} title={cardTitle} class="card">
             <div class="custom-close">
                 <lightning-button label="X" variant="destructive" onclick={handleClose}></lightning-button>
             </div>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
             </div>
-    </lightning-card>
+        </div>
     
 
     <lightning-button lwc:else label="+ Add a car" onclick={openModal}></lightning-button>
