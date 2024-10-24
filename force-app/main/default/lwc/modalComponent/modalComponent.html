@@ -3,42 +3,17 @@
     <lightning-modal-body> 
         <lightning-card class="slds-m-top_medium">
             <div class="slds-p-around_medium">
-                <lightning-combobox 
-                    label="Select Car Year" 
-                    placeholder="Select Year" 
-                    value={selectedYear} 
-                    options={yearOptions} 
-                    onchange={handleYearChange}>
-                </lightning-combobox>
-
-                <lightning-combobox 
-                    label="Select Car Brand" 
-                    placeholder="Select Brand" 
-                    value={selectedBrand} 
-                    options={brandOptions} 
-                    onchange={handleBrandChange} 
-                    disabled={disableBrand}>
-                </lightning-combobox>
-
-                <lightning-combobox 
-                    label="Select Car Model" 
-                    placeholder="Select Model" 
-                    value={selectedModel} 
-                    options={modelOptions} 
-                    onchange={handleModelChange} 
-                    disabled={disableModel}>
-                </lightning-combobox>
-
-                <lightning-combobox 
-                    label="Select Car Make" 
-                    placeholder="Select Make" 
-                    value={selectedMake} 
-                    options={makeOptions}
-                    onchange={handleMakeChange}   
-                    disabled={disableMake}>
-                </lightning-combobox >
-
-                
+                <template for:each={comboboxes} for:item="combobox">
+                    <lightning-combobox 
+                        key = {combobox.placeholder}
+                        label={combobox.label} 
+                        placeholder={combobox.placeholder} 
+                        value={combobox.value} 
+                        options={combobox.options} 
+                        onchange={combobox.onchange}
+                        disabled={combobox.isDisabled}>
+                    </lightning-combobox>
+                </template>             
             </div>
         </lightning-card>
     </lightning-modal-body>
