@@ -1,12 +1,17 @@
 <template>
     <lightning-card>
-        <div class="slds-card__header tab-navigation" if:true={showTabs}>
+        <div class="slds-card__header tab-navigation" lwc:if={showTabs}>
             <c-tab-navigation-component onselecttab={handleButtonClick}></c-tab-navigation-component>
         </div>
         <div class="slds-card__body slds-grid">
             <template for:each={products} for:item="product">
-                <div  key={product.Id} class="slds-col">
-                    <c-product-component product-info={product.product_Info} shown-area={selectedArea}></c-product-component>
+                <div key={product.id} class="slds-col product">
+                    <c-product-component
+                        product-id={product.id}
+                        shown-area={selectedArea} 
+                        onaddcar={handleAddCar} 
+                        onremovecar={handleRemoveCar} >
+                    </c-product-component>
                 </div>
             </template>
         </div>

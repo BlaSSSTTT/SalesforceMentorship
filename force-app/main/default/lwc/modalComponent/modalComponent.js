@@ -106,15 +106,17 @@ export default class ModalComponent extends LightningModal {
     async loadMakeOptions() {
         try {
             const result = await getCars({ year: this.comboboxes[0].value, Brand: this.comboboxes[1].value, Model: this.comboboxes[2].value });
+            
             this.comboboxes[3].options = result.map(make => ({ label: make, value: make }));
+            console.log(this.comboboxes[3].options)
         } catch (error) {
             console.error('Error loading makes: ', error);
             this.showToast('Error', 'Error loading makes: ' + error.body.message, 'error'); 
         }
     }
-
+    
     handleMakeChange(event) {
-        this.selectedMake = event.detail.value;
+        this.comboboxes[3].value = event.detail.value;
     }
 
     handleSubmit() {

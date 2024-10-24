@@ -1,6 +1,9 @@
 <template>  
     <lightning-card lwc:if={car} title={cardTitle} icon-name="custom:custom63">
-            <div class="car-info">
+            <div class="custom-close">
+                <lightning-button label="X" variant="destructive" onclick={handleClose}></lightning-button>
+            </div>
+            <div class="car-info">                
                 <div data-section="basic-info"> 
                     <div class="custom-card" >
                         <div class="slds-card__header slds-grid">

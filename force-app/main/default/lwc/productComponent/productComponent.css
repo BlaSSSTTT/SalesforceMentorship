@@ -17,3 +17,11 @@
     font-size: 1.125rem; 
     margin-bottom: 0.5rem; 
 }
+.custom-close {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 10px;
+}
+
