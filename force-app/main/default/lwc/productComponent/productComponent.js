@@ -1,25 +1,11 @@
 import { LightningElement, api, track } from 'lwc';
+
 import getCar from '@salesforce/apex/CarService.getCar';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent'; 
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import ModalComponent from 'c/modalComponent'; 
 export default class ProductComponent extends LightningElement {
     @track car;
-    @track error;
-    @track show = false;
     @track activeTab = 'basic-info';
-
-    _productInfo;
-
-    @api
-    set productInfo(value) {
-        this._productInfo = value;
-        if (value) {
-            this.fetchCarDetails();
-        }
-    }
-
-    get productInfo() {
-        return this._productInfo;
-    }
 
     get cardTitle() {
         return this.car ? `${this.car.Name} Car Details` : 'Car Details';
@@ -28,16 +14,31 @@ export default class ProductComponent extends LightningElement {
     handleTabChange(event) {
         this.activeTab = event.detail; 
     }
+    async openModal(event) {
+        
+        const result = await ModalComponent.open({
+            size: 'small'
+        });
+        console.log(result.cancel);
+        
+        if(!result.cancel){
+            const carInfo = {
+                year: result.year,
+                brand: result.brand,
+                model: result.model,
+                name: result.name
+            };
+            this.fetchCarDetails(carInfo);
+        }
+    }
 
-    fetchCarDetails() {
-        const { year, brand, model, name } = this.productInfo;
+    fetchCarDetails(productInfo) {
+        const { year, brand, model, name } = productInfo;
         getCar({ year, brand, model, name })
             .then(result => {
                 this.car = result;
-                this.show = true;
             })
             .catch(error => {
-                this.error = error;
                 console.error('Error fetching car details: ', error);
                 this.showToast('Error', 'Error fetching car details: ' + error.body.message, 'error'); 
             });
@@ -51,6 +52,11 @@ export default class ProductComponent extends LightningElement {
         });
         this.dispatchEvent(event);
     }
+    
+
+
+
+
      _shownArea;
     @api
     set shownArea(value) {

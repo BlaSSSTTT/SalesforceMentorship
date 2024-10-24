@@ -1,6 +1,5 @@
 <template>  
-    <lightning-card if:true={show} title={cardTitle} icon-name="custom:custom63">
-        <template if:true={car} >
+    <lightning-card lwc:if={car} title={cardTitle} icon-name="custom:custom63">
             <div class="car-info">
                 <div data-section="basic-info"> 
                     <div class="custom-card" >
@@ -83,14 +82,9 @@
                         </div>
                     </div>
                 </div>
-            </div>            
-        </template>
-        
-        
-        
-        <template if:true={error}>
-            <p>{error}</p>
-        </template>
+            </div>
     </lightning-card>
     
+
+    <lightning-button lwc:else label="+ Add a car" onclick={openModal}></lightning-button>
 </template>

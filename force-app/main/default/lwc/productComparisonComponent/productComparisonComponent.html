@@ -1,24 +1,14 @@
 <template>
-    <div class="tab-navigation" if:true={showTabs}>
-        <c-tab-navigation-component onselecttab={handleButtonClick}></c-tab-navigation-component>
-    </div>
-    <div class="slds-grid">
-        <div class="slds-col">
-            <lightning-button if:true={isButton1Visible} label="+ Add a car" onclick={openModal} data-id="1"></lightning-button>
-            <c-product-component product-info={product1Info} shown-area={selectedArea}></c-product-component>
+    <lightning-card>
+        <div class="slds-card__header tab-navigation" if:true={showTabs}>
+            <c-tab-navigation-component onselecttab={handleButtonClick}></c-tab-navigation-component>
         </div>
-        <div class="slds-col">
-            <lightning-button if:true={isButton2Visible} label="+ Add a car" onclick={openModal} data-id="2"></lightning-button>
-            <c-product-component product-info={product2Info} shown-area={selectedArea}></c-product-component>
+        <div class="slds-card__body slds-grid">
+            <template for:each={products} for:item="product">
+                <div  key={product.Id} class="slds-col">
+                    <c-product-component product-info={product.product_Info} shown-area={selectedArea}></c-product-component>
+                </div>
+            </template>
         </div>
-        <div class="slds-col">
-            <lightning-button if:true={isButton3Visible} label="+ Add a car" onclick={openModal} data-id="3"></lightning-button>
-            <c-product-component product-info={product3Info} shown-area={selectedArea}></c-product-component>
-        </div>
-        <div class="slds-col">
-            <lightning-button if:true={isButton4Visible} label="+ Add a car" onclick={openModal} data-id="4"></lightning-button>
-            <c-product-component product-info={product4Info}  shown-area={selectedArea}></c-product-component>
-        </div>
-    </div>
-       
+    </lightning-card>       
 </template>
