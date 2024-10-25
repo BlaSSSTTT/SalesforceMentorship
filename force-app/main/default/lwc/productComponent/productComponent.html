@@ -1,44 +1,44 @@
 <template>  
     <div lwc:if={car} title={cardTitle} class="card">
-            <div class="custom-close">
-                <lightning-button label="X" variant="destructive" onclick={handleClose}></lightning-button>
+        <div class="custom-close">
+            <lightning-button label="X" variant="destructive" onclick={handleClose}></lightning-button>
+        </div>
+        <div class="car-info">                
+            <div data-section="basic-info"> 
+                <div class=" slds-card custom-card" >
+                    <div class="slds-card__header slds-grid">
+                         <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                             <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">Basic Information</h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <p><strong>Name:</strong>  <lightning-formatted-url value={carUrl} label={car.Name} target="_blank"></lightning-formatted-url></p>
+                        <p><strong>Brand:</strong> {car.Brand__c}</p>
+                        <p><strong>Model:</strong> {car.Model__c}</p>
+                    </div>
+                </div>
             </div>
-            <div class="car-info">                
-                <div data-section="basic-info"> 
-                    <div class="custom-card" >
-                        <div class="slds-card__header slds-grid">
-                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
-                                <div class="slds-media__body">
-                                    <h2 class="slds-card__header-title">Basic Information</h2>
-                                </div>
-                            </header>
-                        </div>
-                        <div class="slds-card__body slds-card__body_inner">
-                            <p><strong>Name:</strong> {car.Name}</p>
-                            <p><strong>Brand:</strong> {car.Brand__c}</p>
-                            <p><strong>Model:</strong> {car.Model__c}</p>
-                        </div>
-                    </div>
-                </div>
                 
-                <div data-section="price-sale"> 
-                    <div class="custom-card" data-section="price-sale">
-                        <div class="slds-card__header slds-grid">
-                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
-                                <div class="slds-media__body">
-                                    <h2 class="slds-card__header-title">Price and Sale</h2>
-                                </div>
-                            </header>
-                        </div>
-                        <div class="slds-card__body slds-card__body_inner">
-                            <p><strong>Sale Price:</strong> {car.Sale_Price__c}</p>
-                        </div>
+            <div data-section="price-sale"> 
+                <div class="slds-card custom-card" data-section="price-sale">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">Price and Sale</h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <p><strong>Sale Price:</strong> {car.Sale_Price__c}</p>
                     </div>
                 </div>
+            </div>
                 
 
                 <div data-section="technical-specs"> 
-                    <div class="custom-card">
+                    <div class="slds-card custom-card">
                         <div class="slds-card__header slds-grid">
                             <header class="slds-media slds-media_center slds-has-flexi-truncate">
                                 <div class="slds-media__body">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div data-section="performance"> 
-                    <div class="custom-card" data-section="performance">
+                    <div class="slds-card custom-card" data-section="performance">
                         <div class="slds-card__header slds-grid">
                             <header class="slds-media slds-media_center slds-has-flexi-truncate">
                                 <div class="slds-media__body">
@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <div data-section="safety">
-                    <div class="custom-card" data-section="safety">
+                    <div class="slds-card custom-card" data-section="safety">
                         <div class="slds-card__header slds-grid">
                             <header class="slds-media slds-media_center slds-has-flexi-truncate">
                                 <div class="slds-media__body">
@@ -86,8 +86,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+    </div>
     
 
-    <lightning-button lwc:else label="+ Add a car" onclick={openModal}></lightning-button>
+    <lightning-button class="button" lwc:else label="+ Add a car" onclick={openModal}></lightning-button>
 </template>

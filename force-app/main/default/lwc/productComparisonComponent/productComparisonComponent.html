@@ -1,11 +1,11 @@
 <template>
-    <lightning-card>
-        <div class="slds-card__header tab-navigation" lwc:if={showTabs}>
+    <lightning-card title="Compare Cars Side-by-Side " class="slds-card">
+        <div class="slds-card__header slds-align_absolute-center" lwc:if={showTabs}>
             <c-tab-navigation-component onselecttab={handleButtonClick}></c-tab-navigation-component>
         </div>
         <div class="slds-card__body slds-grid">
             <template for:each={products} for:item="product">
-                <div key={product.id} class="slds-col product">
+                <div key={product.id} class="slds-col product slds-align_absolute-center">
                     <c-product-component
                         product-id={product.id}
                         shown-area={selectedArea} 

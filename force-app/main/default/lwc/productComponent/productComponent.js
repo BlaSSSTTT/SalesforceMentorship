@@ -11,7 +11,9 @@ export default class ProductComponent extends LightningElement {
     get cardTitle() {
         return this.car ? `${this.car.Name} Car Details` : 'Car Details';
     }
-
+    get carUrl() {
+        return `/lightning/r/Car__c/${this.car.Id}/view`;
+    }
     handleTabChange(event) {
         this.activeTab = event.detail; 
     }
@@ -81,7 +83,7 @@ export default class ProductComponent extends LightningElement {
             const targetElement = this.template.querySelector(`[data-section="${section}"]`);
             if (targetElement) {
                 const header = this.template.querySelector('.slds-card__header');
-                const yOffset = targetElement.querySelector(".slds-card__header").getBoundingClientRect().left+50+2*header.getBoundingClientRect().left; 
+                const yOffset = targetElement.querySelector(".slds-card__header").clientHeight+20+2*header.clientHeight; 
                 const y = targetElement.getBoundingClientRect().top + window.scrollY - yOffset;
                 window.scrollTo({top: y, behavior: 'smooth'});
             } else {
