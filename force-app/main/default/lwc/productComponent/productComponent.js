@@ -36,9 +36,7 @@ export default class ProductComponent extends LightningElement {
         }
     }
     handleClose(){
-        this.car = null;
-        const tabChangeEvent = new CustomEvent('removecar', {detail: this.productId });
-        this.dispatchEvent(tabChangeEvent); 
+        this.car = null; 
     }
     fetchCarDetails(productInfo) {
         const { year, brand, model, name } = productInfo;

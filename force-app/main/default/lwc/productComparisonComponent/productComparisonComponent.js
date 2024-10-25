@@ -8,7 +8,7 @@ export default class ProductComparisonComponent extends LightningElement {
 
     @track products = [
         {
-            id:1            
+            id:1
         }
     ]
 
@@ -26,12 +26,6 @@ export default class ProductComparisonComponent extends LightningElement {
                 id:this.products[this.products.length-1].id+1
             })
             this.showTabs = true;
-        }
-    }
-    handleRemoveCar(event){
-        this.products = this.products.filter(product => product.id != event.detail);
-        if(this.products.length==1){
-            this.showTabs = false;
         }
     }
 }
