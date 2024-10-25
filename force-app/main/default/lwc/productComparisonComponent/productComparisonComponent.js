@@ -8,7 +8,8 @@ export default class ProductComparisonComponent extends LightningElement {
 
     @track products = [
         {
-            id:1
+            id:1,
+            haveContent:false
         }
     ]
 
@@ -16,16 +17,32 @@ export default class ProductComparisonComponent extends LightningElement {
 
 
     
-
+    checkTabs(){
+        for(let i=0; i<this.products.length; i++){
+            if(this.products[i].haveContent){
+                this.showTabs = true;
+                return;
+            }
+        }
+        this.showTabs = false;
+    }
     handleButtonClick(event) {
         this.selectedArea = event.detail;
     }
     handleAddCar(event){
         if(this.products.length < this.MAX_PRODUCTS){
             this.products.push({
-                id:this.products[this.products.length-1].id+1
+                id:this.products[this.products.length-1].id+1,
+                haveContent:false
             })
-            this.showTabs = true;
         }
+        const car = this.products.filter(car => car.id == event.detail)[0];
+        car.haveContent = true;
+        this.checkTabs();
+    }
+    handleRemoveCar(event){      
+        const car = this.products.filter(car => car.id == event.detail)[0];
+        car.haveContent = false;
+        this.checkTabs();
     }
 }

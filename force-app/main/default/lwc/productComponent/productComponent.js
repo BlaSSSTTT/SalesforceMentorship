@@ -31,12 +31,14 @@ export default class ProductComponent extends LightningElement {
                 name: result.name
             };
             this.fetchCarDetails(carInfo);
-            const tabChangeEvent = new CustomEvent('addcar', {  });
+            const tabChangeEvent = new CustomEvent('addcar', {detail: this.productId });
             this.dispatchEvent(tabChangeEvent); 
         }
     }
     handleClose(){
-        this.car = null; 
+        this.car = null;
+        const tabChangeEvent = new CustomEvent('removecar', {detail: this.productId });
+        this.dispatchEvent(tabChangeEvent); 
     }
     fetchCarDetails(productInfo) {
         const { year, brand, model, name } = productInfo;
@@ -84,9 +86,7 @@ export default class ProductComponent extends LightningElement {
                 const yOffset = targetElement.querySelector(".slds-card__header").clientHeight+20+2*header.clientHeight; 
                 const y = targetElement.getBoundingClientRect().top + window.scrollY - yOffset;
                 window.scrollTo({top: y, behavior: 'smooth'});
-            } else {
-                console.error(`Section "${section}" not found.`);
-            }
+            } 
         }
         catch(error){
             console.log('Error scrolling to section: ' + error.message);
