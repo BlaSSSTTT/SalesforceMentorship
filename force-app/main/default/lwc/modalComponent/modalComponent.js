@@ -62,7 +62,7 @@ export default class ModalComponent extends LightningModal {
 
     handleYearChange(event) {     
         this.disableButton = true;   
-        this.comboboxes[0].value = event.detail.value;
+        this.comboboxes[0].value = Number(event.detail.value);
         this.comboboxes[1].isDisabled = false; 
         this.comboboxes[2].isDisabled = true;
         this.comboboxes[3].isDisabled = true;

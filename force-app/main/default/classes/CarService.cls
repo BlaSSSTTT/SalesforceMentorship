@@ -3,21 +3,13 @@ public with sharing class CarService {
     public static List<Decimal> getYears() {
         Set<Decimal> years = new Set<Decimal>();
         
-        List<Product2> cars = [SELECT Year_of_Manufacture__c FROM Product2];
+        List<Product2> cars = [SELECT Year_of_Manufacture__c FROM Product2 ORDER BY Year_of_Manufacture__c];
         
         for(Product2 car : cars) {
             years.add(car.Year_of_Manufacture__c);
         }
-        List<Decimal> returningYears = new List<Decimal>();
-
-        for(Decimal theYear : years) {
-            returningYears.add(theYear);
-        }
-        if(returningYears.size() > 0) {
-            returningYears.sort();
-        }
         
-        return returningYears;
+        return new List<Decimal>(years);
     }
     @AuraEnabled(cacheable=true)
     public static List<String> getBrands(Decimal year) {
@@ -28,13 +20,8 @@ public with sharing class CarService {
         for(Product2 car : cars) {
             brands.add(car.Brand__c);
         }
-        List<String> returningBrands = new List<String>();
-
-        for(String brand : brands) {
-            returningBrands.add(brand);
-        }
         
-        return returningBrands;
+        return new List<String>(brands);
     }
     @AuraEnabled(cacheable=true)
     public static List<String> getModels(Decimal year, String Brand) {
@@ -45,12 +32,8 @@ public with sharing class CarService {
         for(Product2 car : cars) {
             models.add(car.Model__c);
         }
-        List<String> returningModels = new List<String>();
-
-        for(String model : models) {
-            returningModels.add(model);
-        }
-        return returningModels;
+        
+        return new List<String>(models);
     }
     @AuraEnabled(cacheable=true)
     public static List<String> getCars(Decimal year, String Brand, String Model) {
@@ -62,13 +45,8 @@ public with sharing class CarService {
         for(Product2 car : cars) {
             names.add(car.Name);
         }
-        List<String> namesOfCars = new List<String>();
-
-        for(String name : names) {
-            namesOfCars.add(name);
-        }
         
-        return namesOfCars;
+        return new List<String>(names);
     }
     @AuraEnabled(cacheable=true)
     public static Product2 getCar(Decimal year, String brand, String model, String name) {
