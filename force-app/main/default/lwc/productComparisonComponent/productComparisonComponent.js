@@ -26,6 +26,16 @@ export default class ProductComparisonComponent extends LightningElement {
         }
         this.showTabs = false;
     }
+    filterProducts(){
+       this.products = this.products.filter(product => product.haveContent);
+       if(this.products.length != this.MAX_PRODUCTS){
+            
+            this.products.push({
+                id: this.products.length !=0 ? this.products[this.products.length-1].id + 1 : 1,
+                haveContent:false
+            })
+       }
+    }
     handleButtonClick(event) {
         this.selectedArea = event.detail;
     }
@@ -39,10 +49,12 @@ export default class ProductComparisonComponent extends LightningElement {
         const car = this.products.filter(car => car.id == event.detail)[0];
         car.haveContent = true;
         this.checkTabs();
+        this.filterProducts();
     }
     handleRemoveCar(event){      
         const car = this.products.filter(car => car.id == event.detail)[0];
         car.haveContent = false;
         this.checkTabs();
+        this.filterProducts();
     }
 }

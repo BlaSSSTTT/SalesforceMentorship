@@ -5,7 +5,7 @@
         </div>
         <div class="slds-card__body slds-grid">
             <template for:each={products} for:item="product">
-                <div key={product.id} class="slds-col product slds-align_absolute-center">
+                <div key={product.id} class="slds-col product ">
                     <c-product-component
                         product-id={product.id}
                         shown-area={selectedArea} 

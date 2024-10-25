@@ -7,6 +7,7 @@ import getModels from '@salesforce/apex/CarService.getModels';
 import getCars from '@salesforce/apex/CarService.getCars';
 
 export default class ModalComponent extends LightningModal {
+    @track disableButton = true;
     @track comboboxes =[
         {
             label:"Select Car Year",
@@ -59,7 +60,8 @@ export default class ModalComponent extends LightningModal {
         }
     }
 
-    handleYearChange(event) {        
+    handleYearChange(event) {     
+        this.disableButton = true;   
         this.comboboxes[0].value = event.detail.value;
         this.comboboxes[1].isDisabled = false; 
         this.comboboxes[2].isDisabled = true;
@@ -80,6 +82,7 @@ export default class ModalComponent extends LightningModal {
     }
 
     handleBrandChange(event) {
+        this.disableButton = true;
         this.comboboxes[1].value = event.detail.value;
         this.comboboxes[2].isDisabled = false; 
         this.comboboxes[3].isDisabled = true;
@@ -98,6 +101,7 @@ export default class ModalComponent extends LightningModal {
     }
 
     handleModelChange(event) {
+        this.disableButton = true;
         this.comboboxes[2].value = event.detail.value;
         this.comboboxes[3].isDisabled = false; 
         this.loadMakeOptions(); 
@@ -116,6 +120,7 @@ export default class ModalComponent extends LightningModal {
     }
     
     handleMakeChange(event) {
+        this.disableButton = false;
         this.comboboxes[3].value = event.detail.value;
     }
 
