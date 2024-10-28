@@ -64,10 +64,11 @@ export default class ModalComponent extends LightningModal {
         this.disableButton = true;   
         this.comboboxes[0].value = Number(event.detail.value);
         this.comboboxes[1].isDisabled = false; 
-        this.comboboxes[2].isDisabled = true;
-        this.comboboxes[3].isDisabled = true;
-        this.comboboxes[2].options = [];
-        this.comboboxes[3].options = [];
+        for(let i=2;i<this.comboboxes.length;i++){
+            this.comboboxes[i].isDisabled = true;
+            this.comboboxes[i].value = null;
+            this.comboboxes[i].options = [];
+        }
         this.loadBrandOptions(); 
     }
 
@@ -85,8 +86,11 @@ export default class ModalComponent extends LightningModal {
         this.disableButton = true;
         this.comboboxes[1].value = event.detail.value;
         this.comboboxes[2].isDisabled = false; 
-        this.comboboxes[3].isDisabled = true;
-        this.comboboxes[3].options = [];
+        for(let i=3;i<this.comboboxes.length;i++){
+            this.comboboxes[i].isDisabled = true;
+            this.comboboxes[i].value = null;
+            this.comboboxes[i].options = [];
+        }
         this.loadModelOptions(); 
     }
 

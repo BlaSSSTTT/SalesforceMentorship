@@ -80,7 +80,17 @@ export default class ProductComponent extends LightningElement {
 
     scrollToSection(section) {
         try{
-            const targetElement = this.template.querySelector(`[data-section="${section}"]`);
+            const headers = this.template.querySelectorAll('h2.slds-card__header-title');
+
+            let targetElement = null;
+            headers.forEach(header => {
+                if (header.textContent.trim() === section) {
+                    targetElement = header.closest('div.slds-card.custom-card');
+                }
+            });
+
+            console.log(targetElement);
+            //const targetElement = this.template.querySelector(`[data-section="${section}"]`);
             if (targetElement) {
                 const header = this.template.querySelector('.slds-card__header');
                 const yOffset = targetElement.querySelector(".slds-card__header").clientHeight+20+2*header.clientHeight; 
