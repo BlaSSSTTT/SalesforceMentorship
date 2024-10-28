@@ -10,6 +10,7 @@ export default class ModalComponent extends LightningModal {
     @track disableButton = true;
     @track comboboxes =[
         {
+            id:1,
             label:"Select Car Year",
             placeholder:"Select Year",
             value:null,
@@ -18,6 +19,7 @@ export default class ModalComponent extends LightningModal {
             isDisabled:false
         },
         {
+            id:2,
             label:"Select Car Brand",
             placeholder:"Select Brand",
             value:null,
@@ -26,6 +28,7 @@ export default class ModalComponent extends LightningModal {
             isDisabled:true
         },
         {
+            id:3,
             label:"Select Car Model",
             placeholder:"Select Model",
             value:null,
@@ -34,6 +37,7 @@ export default class ModalComponent extends LightningModal {
             isDisabled:true
         },
         {
+            id:4,
             label:"Select Car",
             placeholder:"Select Car",
             value:null,
@@ -60,11 +64,12 @@ export default class ModalComponent extends LightningModal {
         }
     }
 
-    handleYearChange(event) {     
+    handleYearChange(event) {  
+        let id = event.target.dataset.id;   
         this.disableButton = true;   
-        this.comboboxes[0].value = Number(event.detail.value);
-        this.comboboxes[1].isDisabled = false; 
-        for(let i=2;i<this.comboboxes.length;i++){
+        this.comboboxes[id-1].value = Number(event.detail.value);
+        this.comboboxes[id].isDisabled = false; 
+        for(let i=id+1;i<this.comboboxes.length;i++){
             this.comboboxes[i].isDisabled = true;
             this.comboboxes[i].value = null;
             this.comboboxes[i].options = [];
@@ -83,10 +88,11 @@ export default class ModalComponent extends LightningModal {
     }
 
     handleBrandChange(event) {
+        let id = event.target.dataset.id;
         this.disableButton = true;
-        this.comboboxes[1].value = event.detail.value;
-        this.comboboxes[2].isDisabled = false; 
-        for(let i=3;i<this.comboboxes.length;i++){
+        this.comboboxes[id-1].value = event.detail.value;
+        this.comboboxes[id].isDisabled = false; 
+        for(let i=id+1;i<this.comboboxes.length;i++){
             this.comboboxes[i].isDisabled = true;
             this.comboboxes[i].value = null;
             this.comboboxes[i].options = [];
@@ -105,9 +111,10 @@ export default class ModalComponent extends LightningModal {
     }
 
     handleModelChange(event) {
+        let id = event.target.dataset.id;
         this.disableButton = true;
-        this.comboboxes[2].value = event.detail.value;
-        this.comboboxes[3].isDisabled = false; 
+        this.comboboxes[id-1].value = event.detail.value;
+        this.comboboxes[id].isDisabled = false; 
         this.loadMakeOptions(); 
     }
 
@@ -124,8 +131,9 @@ export default class ModalComponent extends LightningModal {
     }
     
     handleMakeChange(event) {
+        let id = event.target.dataset.id;
         this.disableButton = false;
-        this.comboboxes[3].value = event.detail.value;
+        this.comboboxes[id-1].value = event.detail.value;
     }
 
     handleSubmit() {

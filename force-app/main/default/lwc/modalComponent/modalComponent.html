@@ -5,6 +5,7 @@
             <div class="slds-p-around_medium">
                 <template for:each={comboboxes} for:item="combobox">
                     <lightning-combobox 
+                        data-id = {combobox.id}
                         key = {combobox.placeholder}
                         label={combobox.label} 
                         placeholder={combobox.placeholder} 
