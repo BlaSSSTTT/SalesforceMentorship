@@ -1,5 +1,4 @@
-public with sharing class CarService {
-    @AuraEnabled(cacheable=true)
+public with sharing class CarService {    
     public static List<Decimal> getYears() {
         Set<Decimal> years = new Set<Decimal>();
         
@@ -11,7 +10,6 @@ public with sharing class CarService {
         
         return new List<Decimal>(years);
     }
-    @AuraEnabled(cacheable=true)
     public static List<String> getBrands(Decimal year) {
         Set<String> brands = new Set<String>();
         
@@ -23,7 +21,6 @@ public with sharing class CarService {
         
         return new List<String>(brands);
     }
-    @AuraEnabled(cacheable=true)
     public static List<String> getModels(Decimal year, String Brand) {
         Set<String> models = new Set<String>();
         

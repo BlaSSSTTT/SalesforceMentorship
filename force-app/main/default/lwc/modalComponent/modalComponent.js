@@ -1,10 +1,10 @@
 import { LightningElement, track } from 'lwc';
 import LightningModal from 'lightning/modal';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent'; 
-import getYears from '@salesforce/apex/CarService.getYears';
-import getBrands from '@salesforce/apex/CarService.getBrands';
-import getModels from '@salesforce/apex/CarService.getModels';
-import getCars from '@salesforce/apex/CarService.getCars';
+import getYears from '@salesforce/apex/CarController.getYears';
+import getBrands from '@salesforce/apex/CarController.getBrands';
+import getModels from '@salesforce/apex/CarController.getModels';
+import getCars from '@salesforce/apex/CarController.getCars';
 
 export default class ModalComponent extends LightningModal {
     @track disableButton = true;
