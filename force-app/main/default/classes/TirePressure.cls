@@ -1,7 +1,7 @@
 public class TirePressure {
-    public Decimal frontRight;
-    public Decimal frontLeft;
-    public Decimal backRight;
-    public Decimal backLeft;
-    public String description;
+    @AuraEnabled public Decimal frontRight{get;set;}
+    @AuraEnabled public Decimal frontLeft{get;set;}
+    @AuraEnabled public Decimal backRight{get;set;}
+    @AuraEnabled public Decimal backLeft{get;set;}
+    @AuraEnabled public String description{get;set;}
 }

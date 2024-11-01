@@ -1,0 +1,15 @@
+<template>
+    <lightning-modal-header label="Car Location"></lightning-modal-header>
+    <lightning-modal-body> 
+        <template lwc:if={showMap}>
+            <lightning-map map-markers={mapMarkers}> </lightning-map>    
+        </template>
+        <template lwc:else>
+                Please wait while we load the car location.             
+        </template>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button label="OK" onclick={handleOkay}></lightning-button>
+    </lightning-modal-footer>
+    
+</template>

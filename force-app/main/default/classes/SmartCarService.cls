@@ -30,12 +30,11 @@ public with sharing class SmartCarService {
 
             Http http = new Http();
             HTTPResponse response = http.send(req);
-            //if(response.getStatusCode() != 200){throw new CalloutException('Помилка: ' + response.getStatus());}
 
             String jsonResponsee = response.getBody();
             Vehicle vehicle = (Vehicle) JSON.deserialize(jsonResponsee, Vehicle.class);
        
-            vehicle.BatteryInfo =  getBattery(id);
+            vehicle.BatteryInfo = getBattery(id);
             vehicle.DistanceInfo = getOdometer(id);
             vehicle.TirePressure = getTirePressure(id);
 
@@ -54,7 +53,9 @@ public with sharing class SmartCarService {
         Http http = new Http();
         HTTPResponse response = http.send(req);
         String jsonResponsee = response.getBody();
+       
         BatteryInfo batteryInfo = (BatteryInfo) JSON.deserialize(jsonResponsee, BatteryInfo.class);
+        
         return batteryInfo;
     }
     public static Location getLocation(String id){

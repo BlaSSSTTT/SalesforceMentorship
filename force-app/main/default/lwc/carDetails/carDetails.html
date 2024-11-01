@@ -1,0 +1,112 @@
+<template>
+    <template lwc:if={carInfo}>
+        <template lwc:if={carInfo.description}>
+            Sorry but service doesn`t work
+            Error: {carInfo.description}
+        </template>
+        <template lwc:else>
+            <div class="slds-card">
+                <header class="slds-card__header slds-grid">
+                    <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <span class="slds-text-heading_small">Details </span>
+                            </h2>
+                        </div>
+                    </div>
+                </header>
+        
+                <div class="slds-card__body slds-card__body_inner">
+                    <section class="slds-section">
+                        <div class="slds-section__title">
+                            <h3 class="slds-text-title_caps"><strong>General Information</strong></h3>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                                <p class="slds-text-title"><strong>Make</strong></p>
+                                <p class="slds-text-body_regular">{carInfo.make}</p>
+                            </div>
+        
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                                <p class="slds-text-title"><strong>Model</strong></p>
+                                <p class="slds-text-body_regular">{carInfo.model}</p>
+                            </div>
+        
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                                <p class="slds-text-title"><strong>Year</strong></p>
+                                <p class="slds-text-body_regular">{carInfo.year}</p>
+                            </div>
+                        </div>
+                    </section>
+        
+                    <section class="slds-section slds-m-top_medium">
+                        <div class="slds-section__title">
+                            <h3 class="slds-text-title_caps"><strong>Battery Information</strong></h3>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                                <p class="slds-text-title"><strong>Battery range</strong></p>
+                                <p class="slds-text-body_regular">{carInfo.batteryInfo.range}</p>
+                            </div>
+        
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                                <p class="slds-text-title"><strong>Battery percent</strong></p>
+                                <p class="slds-text-body_regular">{carInfo.batteryInfo.percentRemaining}</p>
+                            </div>
+                        </div>
+                    </section>
+        
+                    <section class="slds-section slds-m-top_medium">
+                        <div class="slds-section__title">
+                            <h3 class="slds-text-title_caps"><strong>Distance Information</strong></h3>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                                <p class="slds-text-title"><strong>Total Distance</strong></p>
+                                <p class="slds-text-body_regular">{carInfo.distanceInfo.distance}</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="slds-section slds-m-top_medium">
+                        <div class="slds-section__title">
+                            <h3 class="slds-text-title_caps"><strong>Tire Information</strong></h3>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                                <p class="slds-text-title"><strong>Back left tire</strong></p>
+                                <p class="slds-text-body_regular">{carInfo.tirePressure.backLeft}</p>
+                            </div>
+        
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                                <p class="slds-text-title"><strong>Back right tire</strong></p>
+                                <p class="slds-text-body_regular">{carInfo.tirePressure.backRight}</p>
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                                <p class="slds-text-title"><strong>Front left tire</strong></p>
+                                <p class="slds-text-body_regular">{carInfo.tirePressure.frontLeft}</p>
+                            </div>
+        
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                                <p class="slds-text-title"><strong>Front right tire</strong></p>
+                                <p class="slds-text-body_regular">{carInfo.tirePressure.frontRight}</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </template>
+            
+        
+    </template>
+    
+    <template lwc:else>
+        <lightning-card>
+            <div class="exampleHolder">
+                <lightning-spinner alternative-text="Loading" size="large">Please wait</lightning-spinner>
+
+            </div>
+        </lightning-card>
+    </template>
+</template>

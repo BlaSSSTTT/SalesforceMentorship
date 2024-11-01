@@ -1,10 +1,10 @@
 public class Vehicle {
-    public String id;
-    public String make;
-    public String model;
-    public Decimal year;
-    public BatteryInfo batteryInfo;
-    public DistanceInfo distanceInfo;
-    public TirePressure tirePressure;
-    public String description;
+    @AuraEnabled public String id{get;set;}
+    @AuraEnabled public String make{get;set;}
+    @AuraEnabled public String model{get;set;}
+    @AuraEnabled public Decimal year{get;set;}
+    @AuraEnabled public BatteryInfo batteryInfo{get;set;}
+    @AuraEnabled public DistanceInfo distanceInfo{get;set;}
+    @AuraEnabled public TirePressure tirePressure{get;set;}
+    @AuraEnabled public String description{get;set;}
 }

@@ -1,4 +1,4 @@
 public class DistanceInfo {
-    public Integer distance;
-    public String description;
+    @AuraEnabled public Decimal distance{get;set;}
+    @AuraEnabled public String description{get;set;}
 }

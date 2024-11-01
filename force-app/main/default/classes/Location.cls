@@ -1,5 +1,5 @@
 public class Location {
-    public Decimal latitude;
-    public Decimal longitude;
-    public String description;
+    @AuraEnabled public Decimal latitude{get;set;}
+    @AuraEnabled public Decimal longitude{get;set;}
+    @AuraEnabled public String description{get;set;}
 }

@@ -1,5 +1,5 @@
 public class BatteryInfo {
-    public Integer range;
-    public Decimal percentRemaining;
-    public String description;
+    @AuraEnabled public Decimal range{get;set;}
+    @AuraEnabled public Decimal percentRemaining{get;set;}
+    @AuraEnabled public String description{get;set;}
 }
