@@ -1,7 +1,7 @@
 import { LightningElement, track,wire } from 'lwc';
 import { publish, MessageContext } from 'lightning/messageService';
 import getMyVehicle from '@salesforce/apex/SmartCarController.getMyVehicle';
-
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import MessageChannel from '@salesforce/messageChannel/MessageChannel__c';
 import SmartCarLocation from 'c/smartCarLocation'; 
 export default class CarHeader extends LightningElement {
@@ -20,6 +20,12 @@ export default class CarHeader extends LightningElement {
             this.error = null;
             publish(this.messageContext, MessageChannel, this.vehicle);
         }catch(e){
+            const event = new ShowToastEvent({
+                title: 'Error',
+                message: e.message,
+                variant: 'success'
+            });
+            this.dispatchEvent(event);           
             this.error = e;
             this.vehicle = undefined;
         }
@@ -32,6 +38,12 @@ export default class CarHeader extends LightningElement {
             id: this.vehicle.id
         });
         }catch(e){
+            const event = new ShowToastEvent({
+                title: 'Error',
+                message: e.message,
+                variant: 'success'
+            });
+            this.dispatchEvent(event); 
             console.error(e);
         }
         

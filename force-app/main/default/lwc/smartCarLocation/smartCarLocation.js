@@ -1,5 +1,6 @@
 import { LightningElement, track, api } from 'lwc';
 import LightningModal from 'lightning/modal';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getCarLocation from '@salesforce/apex/SmartCarController.getCarLocation';
 export default class SmartCarLocation extends LightningModal  {
     @api id;
@@ -27,6 +28,12 @@ export default class SmartCarLocation extends LightningModal  {
                 console.error('Location data is incomplete or missing.');
             }
         } catch (error) {
+            const event = new ShowToastEvent({
+                title: 'Error',
+                message: error,
+                variant: 'success'
+            });
+            this.dispatchEvent(event); 
             console.error('Error fetching location:', error);
         }
     }

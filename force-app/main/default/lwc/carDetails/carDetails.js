@@ -20,7 +20,5 @@ export default class CarDetails extends LightningElement {
  
     handleMessage(message) {
         this.carInfo ={ ...message};
-        console.error(message);
-        console.error(this.carInfo);
     }
 }
