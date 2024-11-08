@@ -1,0 +1,33 @@
+<template>
+    <template lwc:if={vehicle}>
+        <template lwc:if={vehicle.description}></template>
+        <template lwc:else>
+            <div class="slds-page-header" >
+                <div class="slds-page-header__row">
+                    <div class="slds-page-header__col-title">
+                        <div class="slds-media">
+                            <div class="slds-media__body">
+                                <div class="slds-page-header__name">
+                                    <div class="slds-page-header__name-title">
+                                        <h1>
+                                            <span>Car</span>
+                                            <span class="slds-page-header__title slds-truncate" title="Recently Viewed">{vehicle.make} {vehicle.model} {vehicle.year}</span>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-page-header__col-actions">
+                        <div class="slds-page-header__controls">
+                            <div class="slds-page-header__control">
+                                <button class="slds-button slds-button_neutral" onclick={handleGetLocation}>Location</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </template>
+    
+</template>

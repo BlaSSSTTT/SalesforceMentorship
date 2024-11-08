@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Compare Cars Side-by-Side ">
+        <div class="slds-card__header slds-align_absolute-center" lwc:if={showTabs}>
+            <c-tab-navigation-component onselecttab={handleButtonClick}></c-tab-navigation-component>
+        </div>
+        <div class="slds-card__body slds-grid">
+            <template for:each={products} for:item="product">
+                <div key={product.id} class="slds-col product ">
+                    <c-product-component
+                        product-id={product.id}
+                        shown-area={selectedArea} 
+                        onaddcar={handleAddCar} 
+                        onremovecar={handleRemoveCar} >
+                    </c-product-component>
+                </div>
+            </template>
+        </div>
+    </lightning-card>       
+</template>

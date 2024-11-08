@@ -1,0 +1,33 @@
+.custom-card {
+    border: 2px solid #000000;
+    border-radius: 0.25rem; 
+    padding: 1rem; 
+    margin-bottom: 1rem; 
+}
+.car-info{
+    padding: 10px;
+}
+.custom-card h2 {
+    font-size: 1.25rem;
+    font-weight: bold; 
+    text-transform: uppercase;
+}
+
+.custom-card p {
+    font-size: 1.125rem; 
+    margin-bottom: 0.5rem; 
+}
+.custom-close {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 10px;
+}
+.card{
+    border: 2px solid black; 
+    border-radius: 0.25rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    
+}

@@ -19,12 +19,7 @@ public with sharing class CaseTriggerHandler extends TriggerHandler {
         for (Case caseRecord : cases1) {
             if(caseRecord.Subject.contains('VIN-')) {
                 casesId.add(caseRecord.Id);
-                Integer startIndex = caseRecord.Subject.indexOf('VIN-')+4;
-                Integer endIndex = caseRecord.Subject.indexOf(' ', startIndex);
-                if (endIndex == -1) {
-                    endIndex = caseRecord.Subject.length();
-                }                
-                String vinCode = caseRecord.Subject.substring(startIndex, endIndex);
+                String vinCode = caseRecord.Subject.substringAfterLast('VIN-');
                 cases.put(vinCode, caseRecord);
             }
         }
@@ -49,112 +44,58 @@ public with sharing class CaseTriggerHandler extends TriggerHandler {
             }
             insert services;
 
-            List<EmailMessage> email = [SELECT Id FROM EmailMessage WHERE ParentId IN :casesId];
-            System.debug(email);
-            Map<Id, Case> emailIds = new Map<Id, Case>();
-            for(EmailMessage emailRecord : email){
-                for(Case caseRecord : cases1){
-                    if(caseRecord.Id == emailRecord.ParentId){
-                        emailIds.put(emailRecord.Id, caseRecord);
-                    }
-                }
-            }
-            List<Attachment> attachments = [SELECT Id, Name, Body, ParentId FROM Attachment WHERE ParentId IN :emailIds.keySet()];
-            List<Attachment> newAttachments = new List<Attachment>();
-            Map<Id, Attachment> attachmentMap = new Map<Id, Attachment>();
-            for (EmailMessage emailRecord : email) {
-                
-                for (Attachment attachment : attachments) {
-                    if (attachment.ParentId == emailRecord.Id) {
-                        Case case1 = emailIds.get(attachment.ParentId);
-                        Car_Service__c service = servicesMap.get(case1.Id);
-                        Attachment newAttachment = new Attachment();
-                        newAttachment.Body = attachment.Body;
-                        newAttachment.Name = attachment.Name;
-                        newAttachment.ParentId = service.Id;  
-                        
-                        newAttachments.add(newAttachment);
-                        break; 
-                    }
-                }
-            }
-            insert newAttachments;
-
-            // List<ContentDocumentLink> doclinkL = new List<ContentDocumentLink>();
-            // List<ContentDocumentLink> doclinks = [
-            //     SELECT ContentDocumentId, LinkedEntityId 
-            //     FROM ContentDocumentLink 
-            //     WHERE LinkedEntityId in :casesId
-            // ];
-            // System.debug(doclinks);
-            // for (Case caseRecord : cases1) {
-            //     Car_Service__c service = servicesMap.get(caseRecord.Id);
-            //     for (ContentDocumentLink dlink : doclinks) {
-            //         if (dlink.LinkedEntityId == caseRecord.Id) {
-            //             ContentDocumentLink doclink = new ContentDocumentLink();
-            //             doclink.ContentDocumentId = dlink.ContentDocumentId;
-            //             doclink.LinkedEntityId = service.Id;
-            //             doclink.ShareType = 'V';
-            //             doclink.Visibility = 'InternalUsers';
-            //             doclinkL.add(doclink);
-            //         }
-            //     }
-            // }
-            // insert doclinkL;
-
         }       
     }
     public void fromWeb(List<Case> cases){
-        Map<String, Case> carCodes = new Map<String, Case>(); 
-        Map<Id, Contact> contacts = new Map<Id, Contact>();
-        List<Contact> contactsToInsert = new List<Contact>();
-        for(Case case1 : cases) {
-            if (String.isNotBlank(case1.SuppliedEmail)){
-                carCodes.put(case1.Car_VIN_Code__c, case1);
-                Contact contact = new Contact();
-                contact.Email = case1.SuppliedEmail;
-                contact.LastName = String.valueOf(System.now().getTime());
+        sendEmail(cases);
+        createCarServices(cases);      
+    }
+    private void SendEmail(List<Case> cases){
+        List<Messaging.SingleEmailMessage> emails = new List<Messaging.SingleEmailMessage>();
+        EmailTemplate emailTemplate = [
+            SELECT Id, Name, Subject, HtmlValue, Body 
+            FROM EmailTemplate 
+            WHERE DeveloperName = 'Car_Servise_Notification' 
+            LIMIT 1
+        ];
 
-                contactsToInsert.add(contact);
-                contacts.put(case1.Id, contact);
-            }
-        }
-        insert contactsToInsert;
-        for(Case case1 : cases) {
-            carCodes.put(case1.Car_Vin_Code__c, case1);
+        for(Case case1 : cases) {            
             if (String.isNotBlank(case1.SuppliedEmail) ){
                 Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
             
-                email.setTemplateId('00XQy000007Stgf');
+                email.setTemplateId(emailTemplate.Id);
             
-                email.setTargetObjectId(contacts.get(case1.Id).Id); 
+                email.setTargetObjectId(case1.Id); 
             
                 email.setWhatId(case1.Id);
             
-                email.setSenderDisplayName('Sender Name'); 
-            
                 email.setReplyTo(case1.SuppliedEmail); 
-            
-                Messaging.sendEmail(new Messaging.SingleEmailMessage[] { email });
-            }
-            
-            
+                
+                emails.add(email);
+            }           
+        }
+        Messaging.sendEmail(emails);
+    }
+    private void createCarServices(List<Case> cases){
+        Map<String, Case> carCodes = new Map<String, Case>(); 
+        Map<Id, Contact> contacts = new Map<Id, Contact>();
+        for(Case case1 : cases) {
+            carCodes.put(case1.Car_Vin_Code__c, case1);
         }
         List<Product2> cars = [SELECT Id, VIN_Number__c FROM Product2 WHERE VIN_Number__c IN :carCodes.keySet()];
-        if(cars.size() > 0) {
-            List<Car_Service__c> services = new List<Car_Service__c>();
-            for(Product2 car : cars) {
-                Case case2 = carCodes.get(car.VIN_Number__c);
-                Car_Service__c service = new Car_Service__c();
-                service.Name = case2.SuppliedName;
-                service.Case__c = case2.Id;
-                service.Car__c = car.Id;
-                service.Description__c = case2.Description;
-                service.Date__c = System.today();
-                services.add(service);
-            }
-            insert services;
+        if(cars.size() < 1) {return;}
+
+        List<Car_Service__c> services = new List<Car_Service__c>();
+        for(Product2 car : cars) {
+            Case case2 = carCodes.get(car.VIN_Number__c);
+            Car_Service__c service = new Car_Service__c();
+            service.Name = case2.SuppliedName;
+            service.Case__c = case2.Id;
+            service.Car__c = car.Id;
+            service.Description__c = case2.Description;
+            service.Date__c = System.today();
+            services.add(service);
         }
+        insert services;        
     }
-    
 }
