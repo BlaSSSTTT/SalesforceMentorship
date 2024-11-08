@@ -8,6 +8,7 @@ public class PlannedSalesProcessor implements Database.Batchable<SObject> {
     
 
     public void execute(Database.BatchableContext BC, List<SObject> scope) {
+        System.debug('Test');
         List<Planned_Sales__c> plannedSales = (List<Planned_Sales__c>) scope;
         List<Planned_Sales__c> plannedSalesToSendMessage = new List<Planned_Sales__c>();
         for(Planned_Sales__c plannedSale : plannedSales) {

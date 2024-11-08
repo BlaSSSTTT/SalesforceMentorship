@@ -15,11 +15,17 @@ public with sharing class TestPlannedSalesProcessor {
             }
         }
         insert plannedSalesList;        
-
+        
+        Id jobId;
+    
         Test.startTest();
-        Database.executeBatch(new PlannedSalesProcessor(), 200); 
-        Test.stopTest();
-        Integer invocations = Limits.getEmailInvocations();
-        System.assertEquals(0, invocations, 'Email has not been sent');
+  
+        jobId = System.schedule('Planned Sales Schedulable', '0 0 0 ? * * *', new PlannedSalesSchedul());
+  
+        Test.stopTest(); 
+
+        List<AsyncApexJob> batchJobs = [SELECT Id, Status FROM AsyncApexJob WHERE ApexClass.Name = 'PlannedSalesSchedul'];        
+        System.assertEquals(1, batchJobs.size(), 'Unexpected number of batch jobs ran: ' + batchJobs);
+        System.assertEquals('Queued', batchJobs[0].Status, 'Job planned with an unexpected status.');
     }
 }

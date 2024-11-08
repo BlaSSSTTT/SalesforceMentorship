@@ -1,9 +1,8 @@
 public class SendEmailQueueable implements Queueable {
-    List<Planned_Sales__c> plannedSales;
-    List<String> emailAddresses;
-    public SendEmailQueueable (List<Planned_Sales__c> plannedSales){
-        this.plannedSales = plannedSales;
-        String groupName = 'Salesforce_Admin_Group';
+    private List<Planned_Sales__c> plannedSales;
+    private static List<String> emailAddresses;
+    private static String  groupName = 'Salesforce_Admin_Group';
+    static{
         Group targetGroup = [SELECT Id FROM Group WHERE DeveloperName  = :groupName LIMIT 1];
         List<GroupMember> groupMembers = [SELECT UserOrGroupId FROM GroupMember WHERE GroupId = :targetGroup.Id];
         Set<Id> groupMemberID = new Set<Id>();
@@ -12,19 +11,21 @@ public class SendEmailQueueable implements Queueable {
         }
         List<String> emailAddresses = new List<String>();
         List<User> users = [SELECT Id,Email FROM User WHERE Id = :groupMemberID];
-        for (User user : users) {            
-            if (user.Id != null) {
-                emailAddresses.add(user.Id);
+        for (User user : users) {
+            if(user.Email != null){
+                emailAddresses.add(user.Email);
             }
+            
         }
-        this.emailAddresses = emailAddresses;
+        emailAddresses = emailAddresses;
+    }
+    public SendEmailQueueable (List<Planned_Sales__c> plannedSales){
+        this.plannedSales = plannedSales;
     }
 
     public void execute(QueueableContext context) {
         Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
-        System.debug(emailAddresses);
         message.toAddresses = emailAddresses;
-        message.optOutPolicy = 'FILTER';
         message.subject = 'Notification that some planned sales is underperforming';
         String body = '';
             
@@ -35,7 +36,8 @@ public class SendEmailQueueable implements Queueable {
         message.plainTextBody = body;
         Messaging.SingleEmailMessage[] messages = 
             new List<Messaging.SingleEmailMessage> {message};
-                Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);
+
+        Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);
         if (results[0].success) {
             System.debug('The email was sent successfully.');
         } else {
